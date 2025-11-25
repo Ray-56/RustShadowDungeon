@@ -1,0 +1,22 @@
+# Clippy linting configuration for RustShadowDungeon
+# Constitution v1.0.1 compliance - strict safety and quality standards
+
+# Cognitive complexity threshold
+cognitive-complexity-threshold = 15
+
+# Documentation
+missing-docs-in-crate-items = true
+
+# Pedantic lints
+avoid-breaking-exported-api = true
+
+# Performance
+too-many-arguments-threshold = 7
+
+# Naming conventions
+enum-variant-name-threshold = 3
+
+# Safety - enforce Constitution Principle I (zero unsafe)
+# All unsafe code must be explicitly documented
+
+

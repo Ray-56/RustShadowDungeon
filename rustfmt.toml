@@ -1,0 +1,44 @@
+# Rust formatting configuration for RustShadowDungeon
+# Constitution v1.0.1 compliance
+
+edition = "2021"
+max_width = 100
+tab_spaces = 4
+newline_style = "Unix"
+
+# Imports
+imports_granularity = "Crate"
+group_imports = "StdExternalCrate"
+
+# Style
+use_small_heuristics = "Max"
+fn_call_width = 80
+struct_lit_width = 80
+chain_width = 80
+
+# Formatting
+format_code_in_doc_comments = true
+format_strings = true
+normalize_comments = true
+normalize_doc_attributes = true
+wrap_comments = true
+
+# Function definitions
+fn_params_layout = "Tall"
+brace_style = "SameLineWhere"
+
+# Match
+match_arm_blocks = true
+match_block_trailing_comma = true
+overflow_delimited_expr = true
+
+# Use field init shorthand
+use_field_init_shorthand = true
+use_try_shorthand = true
+
+# Sort
+reorder_impl_items = true
+reorder_imports = true
+reorder_modules = true
+
+

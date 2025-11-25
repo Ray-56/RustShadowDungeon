@@ -1,0 +1,27 @@
+# Cargo configuration for RustShadowDungeon
+# Fixes SSL certificate issues on macOS
+
+[net]
+# Use git CLI for fetching instead of libgit2 (bypasses SSL cert issues)
+git-fetch-with-cli = true
+
+[http]
+# SSL certificate configuration for macOS
+# Explicitly set CA bundle path
+cainfo = "/etc/ssl/cert.pem"
+
+# Increase timeout for slow connections
+timeout = 60
+
+# Check revocation status (optional, may help with cert issues)
+check-revoke = false
+
+[build]
+# Number of parallel jobs (adjust based on CPU cores)
+jobs = 4
+
+[term]
+# Better progress display
+progress.when = "auto"
+progress.width = 80
+

@@ -1,0 +1,50 @@
+[package]
+name = "rust-shadow-dungeon"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.82.0"
+authors = ["RustShadowDungeon Contributors"]
+license = "MIT"
+description = "A DNF-inspired 2D action game built with Rust and Bevy"
+repository = "https://github.com/Ray-56/RustShadowDungeon"
+keywords = ["game", "bevy", "action", "2d", "dnf"]
+categories = ["games"]
+
+[dependencies]
+# Core game engine
+bevy = { version = "0.17.0", default-features = true }
+
+# Physics and character controller
+# Testing Avian2d (bevy_xpbd successor) for Bevy 0.17 compatibility
+avian2d = { version = "0.4", features = ["debug-plugin", "simd", "parallel"] }
+bevy-tnua = "0.26"
+bevy-tnua-avian2d = "0.8"
+
+# Input management  
+# leafwing-input-manager = "0.17" # Removed due to Bevy version conflict
+
+# Utilities
+serde = { version = "1.0", features = ["derive"] }
+ron = "0.8"
+
+[dev-dependencies]
+# Performance benchmarking
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "movement_bench"
+harness = false
+
+# Test coverage
+approx = "0.5"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+

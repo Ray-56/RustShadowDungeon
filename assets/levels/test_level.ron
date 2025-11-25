@@ -1,0 +1,44 @@
+// Test level configuration for player movement system
+// Simple platform layout for testing ground movement, jumping, and air control
+
+(
+    name: "Test Level - Movement",
+    size: (width: 640, height: 360), // 40×22.5 tiles (16×16 grid)
+    
+    // Ground platforms (16×16 pixel grid aligned)
+    platforms: [
+        // Main ground floor
+        (x: 0, y: 320, width: 640, height: 32),
+        
+        // Low platform (test single jump)
+        (x: 160, y: 288, width: 96, height: 16),
+        
+        // Mid platform (test double-height jump - 32px)
+        (x: 320, y: 256, width: 96, height: 16),
+        
+        // High platform (edge case - near max jump height)
+        (x: 480, y: 240, width: 96, height: 16),
+    ],
+    
+    // Walls for collision testing
+    walls: [
+        // Left boundary
+        (x: 0, y: 0, width: 16, height: 360),
+        
+        // Right boundary  
+        (x: 624, y: 0, width: 16, height: 360),
+    ],
+    
+    // Player spawn point (pixel-aligned to 16×16 grid)
+    player_spawn: (x: 64, y: 288),
+    
+    // Test markers for validation
+    test_markers: [
+        (name: "Ground Movement Test", x: 320, y: 320),
+        (name: "Single Jump Test", x: 160, y: 272),
+        (name: "Max Jump Test", x: 320, y: 240),
+        (name: "Air Control Test", x: 480, y: 224),
+    ],
+)
+
+

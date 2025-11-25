@@ -24,3 +24,4 @@ impl Score {
         info!("Coin collected! Score: {} (+{})", self.points, value);
     }
 }
+

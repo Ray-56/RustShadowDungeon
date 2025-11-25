@@ -5,3 +5,4 @@
 
 // Movement domain logic (will be populated in subsequent tasks)
 pub mod movement;
+

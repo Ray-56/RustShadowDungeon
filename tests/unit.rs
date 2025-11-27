@@ -15,3 +15,6 @@ mod air_control_test;
 
 #[path = "unit/gamepad_input_test.rs"]
 mod gamepad_input_test;
+
+#[path = "unit/combat/combo_test.rs"]
+mod combo_test;

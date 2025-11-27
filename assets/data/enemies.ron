@@ -1,0 +1,15 @@
+// Enemy configuration data
+// 敌人配置数据
+
+(
+    // Slime enemy stats
+    slime: (
+        id: "slime",
+        name: "史莱姆",
+        health: 30.0,
+        attack: 5.0,
+        defense: 0.0,
+        move_speed: 50.0,
+    ),
+)
+

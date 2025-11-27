@@ -23,20 +23,31 @@ bevy-tnua-avian2d = "0.8"
 # Input management  
 # leafwing-input-manager = "0.17" # Removed due to Bevy version conflict
 
+# Audio
+bevy_kira_audio = "0.22"
+
 # Utilities
 serde = { version = "1.0", features = ["derive"] }
 ron = "0.8"
+rand = "0.8"
 
 [dev-dependencies]
 # Performance benchmarking
 criterion = { version = "0.5", features = ["html_reports"] }
+# Test coverage - floating point comparisons
+approx = "0.5"
 
 [[bench]]
 name = "movement_bench"
 harness = false
 
-# Test coverage
-approx = "0.5"
+[[bench]]
+name = "combat_bench"
+harness = false
+
+[[bench]]
+name = "collision_bench"
+harness = false
 
 [profile.dev]
 opt-level = 1

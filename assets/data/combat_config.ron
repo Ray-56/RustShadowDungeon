@@ -1,0 +1,33 @@
+(
+    // Combo system configuration
+    combo_window: 1.0,                  // 连击窗口时间（秒）
+    
+    // Hitfreeze (打击定格) configuration
+    hitfreeze_light: 0.05,              // 轻击定格时间（3 帧 @ 60 FPS）
+    hitfreeze_heavy: 0.083,             // 重击定格时间（5 帧 @ 60 FPS）
+    hitfreeze_critical: 0.117,          // 暴击定格时间（7 帧 @ 60 FPS）
+    
+    // Invincibility frames configuration
+    invincibility_duration: 0.5,        // 无敌帧持续时间（秒）
+    invincibility_flash_interval: 0.1,  // 闪烁间隔（秒）
+    
+    // Damage number configuration
+    damage_number_lifetime: 1.0,        // 伤害数字显示时长（秒）
+    damage_number_rise_speed: 50.0,     // 伤害数字上升速度（像素/秒）
+    
+    // Screen shake configuration
+    screen_shake_light_amplitude: 2.0,  // 轻击震动振幅（像素）
+    screen_shake_heavy_amplitude: 4.0,  // 重击震动振幅（像素）
+    screen_shake_critical_amplitude: 6.0, // 暴击震动振幅（像素）
+    
+    // Particle configuration
+    particle_lifetime: 0.5,             // 粒子寿命（秒）
+    particle_light_count: 5,            // 轻击粒子数量
+    particle_heavy_count: 15,           // 重击粒子数量
+    particle_critical_count: 30,        // 暴击粒子数量
+    
+    // HitBox configuration
+    hitbox_default_lifetime: 10,        // HitBox 默认寿命（帧）
+    hitbox_max_count: 50,               // 同时存在的最大 HitBox 数量
+)
+

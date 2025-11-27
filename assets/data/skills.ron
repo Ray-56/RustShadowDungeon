@@ -1,0 +1,16 @@
+// Skill database configuration
+// 技能数据库配置
+//
+// T080: Contains skill definitions loaded by SkillDatabase resource.
+// Each skill has: id, cooldown, mp_cost, damage, element
+
+[
+    (
+        id: "fireball",
+        cooldown: 5.0,      // 5 second cooldown
+        mp_cost: 20.0,      // 20 MP cost
+        damage: 30.0,       // 30 fire damage
+        element: Fire,      // Fire element
+    ),
+]
+

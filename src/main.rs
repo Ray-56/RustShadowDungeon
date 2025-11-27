@@ -2,7 +2,7 @@
 
 use bevy::prelude::*;
 use rust_shadow_dungeon::infrastructure::{
-    plugins::{GamePhysicsPlugin, PlayerPlugin},
+    plugins::{CombatPlugin, EnemyPlugin, GamePhysicsPlugin, PlayerPlugin, SkillPlugin},
     systems::DebugPlugin,
 };
 
@@ -29,6 +29,9 @@ fn main() {
             GamePhysicsPlugin,
             DebugPlugin,
             PlayerPlugin, // Player movement system
+            CombatPlugin, // Combat system (M2)
+            EnemyPlugin,  // Enemy system (M2)
+            SkillPlugin,  // Skill system (M2)
         ))
         // FPS limiting
         .init_resource::<rust_shadow_dungeon::infrastructure::systems::fps_limiter::FpsLimiter>()

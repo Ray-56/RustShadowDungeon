@@ -22,3 +22,7 @@ pub fn pixel_snap_system(mut query: Query<&mut Transform, With<PixelSnap>>) {
     }
 }
 
+
+
+
+

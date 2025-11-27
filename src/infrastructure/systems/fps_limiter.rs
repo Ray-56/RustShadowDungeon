@@ -35,3 +35,7 @@ pub fn fps_limit_system(mut limiter: ResMut<FpsLimiter>) {
     limiter.last_frame = Instant::now();
 }
 
+
+
+
+

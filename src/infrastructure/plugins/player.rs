@@ -7,8 +7,10 @@ use crate::infrastructure::plugins::physics::CollisionLayer;
 
 use crate::infrastructure::{
     components::{
-        AnimationState, Coin, Enemy, GroundedState, Health, InputState, MovementStateComponent,
-        PatrolBehavior, PixelSnap, Player, VelocityComponent,
+        combat::{Combo, Skill},
+        AnimationState, Coin, Enemy, GroundedState, Health, HurtBox, InputState, MovementStateComponent,
+        PatrolBehavior, PixelSnap, Player, Stats, VelocityComponent, MP,
+        enemy::EnemyType,
     },
     events::{PlayerMoved, StateChanged},
     resources::{MovementConfig, PlayerAnimations, Score},
@@ -18,7 +20,10 @@ use crate::infrastructure::{
         input::player_input_system,
         invincibility_timer_system, jump_initiation_system, pixel_snap_system,
         state_transition_system,
-        ui::{setup_ui, update_coin_count_ui, update_fps_ui, update_health_ui, update_score_ui},
+        ui::{
+            setup_ui, skill_cooldown_ui_system, update_coin_count_ui, update_fps_ui,
+            update_health_ui, update_mp_ui, update_score_ui,
+        },
         variable_jump_system,
     },
 };
@@ -43,6 +48,7 @@ impl Plugin for PlayerPlugin {
             .add_systems(Startup, spawn_enemies)
             .add_systems(Startup, setup_ui)
             // Update systems (order matters!)
+            // Split into multiple groups to avoid tuple size limit
             .add_systems(
                 Update,
                 (
@@ -69,15 +75,26 @@ impl Plugin for PlayerPlugin {
                     invincibility_timer_system,
                     // 10. Collectibles
                     coin_collection_system,
+                )
+                    .chain(),
+            )
+            .add_systems(
+                Update,
+                (
                     // 11. UI updates
                     update_score_ui,
                     update_health_ui,
+                    update_mp_ui, // T094: MP bar UI
                     update_coin_count_ui,
                     update_fps_ui,
-                    // 12. Pixel snap for pixel-perfect rendering
+                    // 12. Combo UI updates (T054-T055)
+                    crate::infrastructure::systems::combo_ui_system,
+                    crate::infrastructure::systems::combo_ui_fadeout_system,
+                    // 13. Skill cooldown UI (T093)
+                    skill_cooldown_ui_system,
+                    // 13. Pixel snap for pixel-perfect rendering
                     pixel_snap_system,
-                )
-                    .chain(), // Run in sequence
+                ),
             );
     }
 }
@@ -103,34 +120,49 @@ fn spawn_player(
     animations.add(MovementState::Falling, vec![fall_texture]);
     animations.frame_duration = 0.1; // 100ms per frame
 
-    commands.spawn((
-        // Sprite component
-        Sprite {
-            image: idle_texture,
-            custom_size: Some(Vec2::new(32.0, 32.0)), // 32x32 pixels (2 tiles)
-            ..default()
-        },
-        // Transform component
-        Transform::from_xyz(0.0, 100.0, 1.0), // Start above ground
-        // Physics components (Avian2d)
-        RigidBody::Dynamic,                        // Dynamic physics body
-        Collider::rectangle(32.0, 32.0),           // Box collider (32x32 pixels)
-        CollisionLayer::Player.collision_filter(), // Collision filtering
-        LockedAxes::ROTATION_LOCKED,               // Prevent rotation (stay upright)
-        // Player marker
-        Player,
-        // Health
-        Health::new(3), // 3 HP
-        // Movement components
-        InputState::default(),
-        MovementStateComponent::default(),
-        VelocityComponent::default(),
-        GroundedState::default(),
-        // Animation state
-        AnimationState::new(0.1),
-        // Pixel snap for pixel-perfect rendering
-        PixelSnap,
-    ));
+    let player_entity = commands
+        .spawn((
+            // Sprite component
+            Sprite {
+                image: idle_texture,
+                custom_size: Some(Vec2::new(32.0, 32.0)), // 32x32 pixels (2 tiles)
+                ..default()
+            },
+            // Transform component
+            Transform::from_xyz(0.0, 100.0, 1.0), // Start above ground
+            // Physics components (Avian2d)
+            RigidBody::Dynamic,                        // Dynamic physics body
+            Collider::rectangle(32.0, 32.0),           // Box collider (32x32 pixels)
+            CollisionLayer::Player.collision_filter(), // Collision filtering
+            LockedAxes::ROTATION_LOCKED,               // Prevent rotation (stay upright)
+            // Player marker
+            Player,
+            // Health
+            Health::new(100.0), // 100 HP (changed to f32 for M2 Combat System)
+            // Combo component (T051)
+            Combo::new(),
+            // Movement components
+            InputState::default(),
+            MovementStateComponent::default(),
+            VelocityComponent::default(),
+            GroundedState::default(),
+            // Animation state
+            AnimationState::new(0.1),
+            // Pixel snap for pixel-perfect rendering
+            PixelSnap,
+        ))
+        .id();
+
+    // Add MP and Skill components separately to avoid tuple size limit
+    commands.entity(player_entity)
+        .insert(MP::new(100.0)) // 100 MP (T078)
+        .insert(Skill::new(
+            "fireball".to_string(),
+            5.0,  // 5 second cooldown
+            20.0, // 20 MP cost
+            30.0, // 30 fire damage
+            crate::domain::combat::Element::Fire,
+        )); // Fireball skill (T081)
 
     info!("Player spawned with 3 HP");
 }
@@ -243,6 +275,8 @@ fn spawn_coins(mut commands: Commands) {
 
 /// Spawn enemies in the level
 fn spawn_enemies(mut commands: Commands) {
+    use crate::domain::combat::collision::Rect;
+
     // Enemy on bottom ground (patrolling left/right)
     commands.spawn((
         Sprite {
@@ -255,6 +289,11 @@ fn spawn_enemies(mut commands: Commands) {
         Collider::rectangle(24.0, 24.0),
         CollisionLayer::Ground.collision_filter(),
         Enemy,
+        EnemyType::Slime, // Add EnemyType component for visual feedback systems
+        // Combat components
+        Health::new(30.0), // 30 HP
+        Stats::new(5.0, 0.0), // Attack 5, Defense 0
+        HurtBox::new(Rect { x: -12.0, y: -12.0, width: 24.0, height: 24.0 }), // 24x24 hurtbox
         PatrolBehavior::new(0.0, 150.0, 50.0), // Patrol 150px left/right at 50px/s
         PixelSnap,
     ));
@@ -271,6 +310,11 @@ fn spawn_enemies(mut commands: Commands) {
         Collider::rectangle(24.0, 24.0),
         CollisionLayer::Ground.collision_filter(),
         Enemy,
+        EnemyType::Slime, // Add EnemyType component
+        // Combat components
+        Health::new(30.0), // 30 HP
+        Stats::new(5.0, 0.0), // Attack 5, Defense 0
+        HurtBox::new(Rect { x: -12.0, y: -12.0, width: 24.0, height: 24.0 }), // 24x24 hurtbox
         PatrolBehavior::new(-200.0, 50.0, 40.0), // Smaller patrol on platform
         PixelSnap,
     ));
@@ -287,6 +331,11 @@ fn spawn_enemies(mut commands: Commands) {
         Collider::rectangle(24.0, 24.0),
         CollisionLayer::Ground.collision_filter(),
         Enemy,
+        EnemyType::Slime, // Add EnemyType component
+        // Combat components
+        Health::new(30.0), // 30 HP
+        Stats::new(5.0, 0.0), // Attack 5, Defense 0
+        HurtBox::new(Rect { x: -12.0, y: -12.0, width: 24.0, height: 24.0 }), // 24x24 hurtbox
         PatrolBehavior::new(200.0, 50.0, 40.0),
         PixelSnap,
     ));

@@ -11,8 +11,8 @@
 
 #[cfg(test)]
 mod skill_flow_integration_tests {
-    use bevy::prelude::*;
     use bevy::ecs::message::MessageWriter;
+    use bevy::prelude::*;
     use rust_shadow_dungeon::domain::combat::collision::Rect;
     use rust_shadow_dungeon::domain::combat::Element;
     use rust_shadow_dungeon::infrastructure::components::combat::{HurtBox, Skill, Stats};
@@ -52,6 +52,8 @@ mod skill_flow_integration_tests {
         app.add_plugins(bevy::asset::AssetPlugin::default());
         app.add_plugins(CombatPlugin);
         app.add_plugins(SkillPlugin);
+        // Add DungeonPlugin to register PlayerDeathInRoom message (needed by death_system)
+        app.add_plugins(rust_shadow_dungeon::infrastructure::plugins::dungeon::DungeonPlugin);
 
         // Add test message queue and system
         app.init_resource::<TestSkillMessageQueue>();

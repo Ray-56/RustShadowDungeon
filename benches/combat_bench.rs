@@ -5,9 +5,9 @@
 /// T107: Tests combat logic performance (damage calculation, combo system, status effects)
 /// Target: <2.5ms per frame for combat logic
 use criterion::{criterion_group, criterion_main, Criterion};
-use rust_shadow_dungeon::domain::combat::{ComboState, Element, Stats};
-use rust_shadow_dungeon::domain::combat::damage::calculate_damage;
 use rust_shadow_dungeon::domain::combat::combo::{advance_combo, get_combo_count};
+use rust_shadow_dungeon::domain::combat::damage::calculate_damage;
+use rust_shadow_dungeon::domain::combat::{ComboState, Element, Stats};
 
 /// Benchmark damage calculation (pure function)
 ///
@@ -65,4 +65,3 @@ fn combo_state_benchmark(c: &mut Criterion) {
 
 criterion_group!(benches, damage_calculation_benchmark, combo_state_benchmark);
 criterion_main!(benches);
-

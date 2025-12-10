@@ -65,6 +65,14 @@ impl DamageNumber {
     }
 }
 
+/// Interaction prompt marker component
+///
+/// 交互提示标记组件
+///
+/// Marks an entity as an interaction prompt UI element.
+#[derive(Component, Debug)]
+pub struct InteractPrompt;
+
 /// T092: Skill cooldown UI component
 ///
 /// 技能冷却 UI 组件

@@ -1,0 +1,26 @@
+//! Item definitions configuration
+//!
+//! 物品定义配置
+//!
+//! Defines item properties including name, icon, and stacking rules.
+
+// Example item definitions
+// This will be expanded with actual items in implementation
+(
+    items: [
+        (
+            id: 1,
+            name: "Gold Coin",
+            icon_path: "sprites/items/gold_coin.png",
+            stackable: true,
+            max_stack: 99,
+        ),
+        (
+            id: 2,
+            name: "Health Potion",
+            icon_path: "sprites/items/health_potion.png",
+            stackable: true,
+            max_stack: 99,
+        ),
+    ],
+)

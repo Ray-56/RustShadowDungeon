@@ -18,3 +18,15 @@ mod gamepad_input_test;
 
 #[path = "unit/combat/combo_test.rs"]
 mod combo_test;
+
+#[path = "unit/loot/drop_table_test.rs"]
+mod drop_table_test;
+
+#[path = "unit/loot/pickup_test.rs"]
+mod pickup_test;
+
+#[path = "unit/loot/inventory_test.rs"]
+mod inventory_test;
+
+#[path = "unit/loot/stacking_test.rs"]
+mod stacking_test;

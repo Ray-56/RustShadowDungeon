@@ -8,9 +8,10 @@ use crate::infrastructure::plugins::physics::CollisionLayer;
 use crate::infrastructure::{
     components::{
         combat::{Combo, Skill},
-        AnimationState, Coin, Enemy, GroundedState, Health, HurtBox, InputState, MovementStateComponent,
-        PatrolBehavior, PixelSnap, Player, Stats, VelocityComponent, MP,
         enemy::EnemyType,
+        loot::InventoryComponent,
+        AnimationState, Coin, Enemy, GroundedState, Health, HurtBox, InputState,
+        MovementStateComponent, PatrolBehavior, PixelSnap, Player, Stats, VelocityComponent, MP,
     },
     events::{PlayerMoved, StateChanged},
     resources::{MovementConfig, PlayerAnimations, Score},
@@ -162,13 +163,16 @@ fn spawn_player(
             20.0, // 20 MP cost
             30.0, // 30 fire damage
             crate::domain::combat::Element::Fire,
-        )); // Fireball skill (T081)
+        )) // Fireball skill (T081)
+        .insert(InventoryComponent::default()); // Initialize inventory (30 slots)
 
     info!("Player spawned with 3 HP");
 }
 
 /// Spawn test ground platform
 fn spawn_test_ground(mut commands: Commands) {
+    use crate::infrastructure::components::obstacle::Obstacle;
+    
     // Main ground platform (large, at bottom)
     commands.spawn((
         Sprite {
@@ -181,6 +185,7 @@ fn spawn_test_ground(mut commands: Commands) {
         Collider::rectangle(640.0, 32.0),      // Match sprite size
         CollisionLayer::Ground.collision_filter(),
         PixelSnap,
+        Obstacle, // Mark as obstacle for line-of-sight detection
     ));
 
     // Left floating platform
@@ -195,6 +200,7 @@ fn spawn_test_ground(mut commands: Commands) {
         Collider::rectangle(128.0, 16.0),
         CollisionLayer::Ground.collision_filter(),
         PixelSnap,
+        Obstacle, // Mark as obstacle for line-of-sight detection
     ));
 
     // Right floating platform
@@ -209,6 +215,7 @@ fn spawn_test_ground(mut commands: Commands) {
         Collider::rectangle(128.0, 16.0),
         CollisionLayer::Ground.collision_filter(),
         PixelSnap,
+        Obstacle, // Mark as obstacle for line-of-sight detection
     ));
 
     // Center high platform
@@ -223,6 +230,7 @@ fn spawn_test_ground(mut commands: Commands) {
         Collider::rectangle(96.0, 16.0),
         CollisionLayer::Ground.collision_filter(),
         PixelSnap,
+        Obstacle, // Mark as obstacle for line-of-sight detection
     ));
 
     info!("Test platforms spawned (4 platforms with Avian2d physics)");
@@ -291,7 +299,7 @@ fn spawn_enemies(mut commands: Commands) {
         Enemy,
         EnemyType::Slime, // Add EnemyType component for visual feedback systems
         // Combat components
-        Health::new(30.0), // 30 HP
+        Health::new(30.0),    // 30 HP
         Stats::new(5.0, 0.0), // Attack 5, Defense 0
         HurtBox::new(Rect { x: -12.0, y: -12.0, width: 24.0, height: 24.0 }), // 24x24 hurtbox
         PatrolBehavior::new(0.0, 150.0, 50.0), // Patrol 150px left/right at 50px/s
@@ -312,7 +320,7 @@ fn spawn_enemies(mut commands: Commands) {
         Enemy,
         EnemyType::Slime, // Add EnemyType component
         // Combat components
-        Health::new(30.0), // 30 HP
+        Health::new(30.0),    // 30 HP
         Stats::new(5.0, 0.0), // Attack 5, Defense 0
         HurtBox::new(Rect { x: -12.0, y: -12.0, width: 24.0, height: 24.0 }), // 24x24 hurtbox
         PatrolBehavior::new(-200.0, 50.0, 40.0), // Smaller patrol on platform
@@ -333,7 +341,7 @@ fn spawn_enemies(mut commands: Commands) {
         Enemy,
         EnemyType::Slime, // Add EnemyType component
         // Combat components
-        Health::new(30.0), // 30 HP
+        Health::new(30.0),    // 30 HP
         Stats::new(5.0, 0.0), // Attack 5, Defense 0
         HurtBox::new(Rect { x: -12.0, y: -12.0, width: 24.0, height: 24.0 }), // 24x24 hurtbox
         PatrolBehavior::new(200.0, 50.0, 40.0),

@@ -9,8 +9,9 @@
 
 #[cfg(test)]
 mod feedback_integration_tests {
-    use bevy::prelude::*;
+    use approx::assert_relative_eq;
     use bevy::ecs::message::MessageWriter;
+    use bevy::prelude::*;
     use rust_shadow_dungeon::domain::combat::collision::Rect;
     use rust_shadow_dungeon::domain::combat::{DamageResult, Element};
     use rust_shadow_dungeon::infrastructure::components::combat::{HitBox, HurtBox, Stats};
@@ -19,7 +20,6 @@ mod feedback_integration_tests {
     use rust_shadow_dungeon::infrastructure::resources::combat_config::CombatConfig;
     use rust_shadow_dungeon::infrastructure::resources::hitfreeze::HitfreezeTimer;
     use rust_shadow_dungeon::infrastructure::systems::feedback::hitfreeze_system;
-    use approx::assert_relative_eq;
 
     use std::collections::VecDeque;
 
@@ -113,11 +113,7 @@ mod feedback_integration_tests {
         // Note: We check before hitfreeze_timer_system runs to avoid delta consumption
         let hitfreeze = app.world().resource::<HitfreezeTimer>();
         assert!(hitfreeze.is_active(), "Hitfreeze should be active after damage event");
-        assert_relative_eq!(
-            hitfreeze.remaining,
-            config.hitfreeze_light,
-            epsilon = 0.001
-        );
+        assert_relative_eq!(hitfreeze.remaining, config.hitfreeze_light, epsilon = 0.001);
     }
 
     /// T057: Test screen shake on heavy hit
@@ -265,11 +261,7 @@ mod feedback_integration_tests {
 
         let hitfreeze = app.world().resource::<HitfreezeTimer>();
         assert!(hitfreeze.is_active(), "Hitfreeze should be active after light hit");
-        assert_relative_eq!(
-            hitfreeze.remaining,
-            config.hitfreeze_light,
-            epsilon = 0.001
-        );
+        assert_relative_eq!(hitfreeze.remaining, config.hitfreeze_light, epsilon = 0.001);
 
         // Reset hitfreeze
         app.world_mut().insert_resource(HitfreezeTimer::new());
@@ -293,11 +285,6 @@ mod feedback_integration_tests {
 
         let hitfreeze = app.world().resource::<HitfreezeTimer>();
         assert!(hitfreeze.is_active(), "Hitfreeze should be active after critical hit");
-        assert_relative_eq!(
-            hitfreeze.remaining,
-            config.hitfreeze_critical,
-            epsilon = 0.001
-        );
+        assert_relative_eq!(hitfreeze.remaining, config.hitfreeze_critical, epsilon = 0.001);
     }
 }
-

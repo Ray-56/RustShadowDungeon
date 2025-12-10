@@ -61,7 +61,7 @@
 2. **01-input-handling** - 输入处理系统规范  
 3. **01-physics-integration** - 物理引擎集成规范
 
-**Spec 位置**: `.specify/specs/01-movement/`
+**Spec 位置**: `specs/001-player-movement/`
 
 ### 核心交付物
 
@@ -84,9 +84,9 @@
 
 #### 文档交付物
 
-- [ ] `.specify/specs/01-movement/spec.md` - 移动系统规范（中文）
-- [ ] `.specify/specs/01-movement/tests.md` - 测试用例定义
-- [ ] `.specify/specs/01-movement/quickstart.md` - 开发者快速开始指南
+- [ ] `specs/001-player-movement/spec.md` - 移动系统规范（中文）
+- [ ] `specs/001-player-movement/tests.md` - 测试用例定义
+- [ ] `specs/001-player-movement/quickstart.md` - 开发者快速开始指南
 
 ### 核心功能点
 
@@ -184,7 +184,7 @@
 2. **02-combat-feedback** - 战斗反馈规范（打击感、音效、特效）
 3. **02-skills-basic** - 基础技能系统规范
 
-**Spec 位置**: `.specify/specs/02-combat/`
+**Spec 位置**: `specs/002-combat-core/`
 
 ### 核心交付物
 
@@ -218,9 +218,9 @@
 
 #### 文档交付物
 
-- [ ] `.specify/specs/02-combat/spec.md` - 战斗系统规范（中文）
-- [ ] `.specify/specs/02-combat/tests.md` - 战斗系统测试用例
-- [ ] `.specify/specs/02-combat/data-model.md` - 战斗数据模型
+- [ ] `specs/002-combat-core/spec.md` - 战斗系统规范（中文）
+- [ ] `specs/002-combat-core/tests.md` - 战斗系统测试用例
+- [ ] `specs/002-combat-core/data-model.md` - 战斗数据模型
 
 ### 核心功能点
 
@@ -332,7 +332,7 @@
 3. **03-loot-inventory** - 战利品与库存系统规范
 4. **03-boss-encounter** - Boss 战规范
 
-**Spec 位置**: `.specify/specs/03-dungeon/`
+**Spec 位置**: `specs/003-dungeon-system/`
 
 ### 核心交付物
 
@@ -375,9 +375,9 @@
 
 #### 文档交付物
 
-- [ ] `.specify/specs/03-dungeon/spec.md` - 地下城系统规范（中文）
-- [ ] `.specify/specs/03-dungeon/tests.md` - 测试用例
-- [ ] `.specify/specs/03-dungeon/data-model.md` - 地下城数据模型
+- [ ] `specs/003-dungeon-system/spec.md` - 地下城系统规范（中文）
+- [ ] `specs/003-dungeon-system/tests.md` - 测试用例
+- [ ] `specs/003-dungeon-system/data-model.md` - 地下城数据模型
 
 ### 核心功能点
 
@@ -491,7 +491,7 @@
 2. **04-skill-tree** - 技能树系统规范
 3. **04-character-progression** - 角色成长规范
 
-**Spec 位置**: `.specify/specs/04-progression/`
+**Spec 位置**: `specs/004-progression/`
 
 ### 核心交付物
 
@@ -527,9 +527,9 @@
 
 #### 文档交付物
 
-- [ ] `.specify/specs/04-progression/spec.md` - 成长系统规范（中文）
-- [ ] `.specify/specs/04-progression/tests.md` - 测试用例
-- [ ] `.specify/specs/04-progression/data-model.md` - 数据模型
+- [ ] `specs/004-progression/spec.md` - 成长系统规范（中文）
+- [ ] `specs/004-progression/tests.md` - 测试用例
+- [ ] `specs/004-progression/data-model.md` - 数据模型
 
 ### 核心功能点
 
@@ -627,7 +627,7 @@
 3. **05-combat-sync** - 战斗同步规范（服务器权威、预测）
 4. **05-latency-compensation** - 延迟补偿规范
 
-**Spec 位置**: `.specify/specs/05-multiplayer/`
+**Spec 位置**: `specs/005-multiplayer/`
 
 ### 核心交付物
 
@@ -659,9 +659,9 @@
 
 #### 文档交付物
 
-- [ ] `.specify/specs/05-multiplayer/spec.md` - 联机系统规范（中文）
-- [ ] `.specify/specs/05-multiplayer/tests.md` - 网络测试用例
-- [ ] `.specify/specs/05-multiplayer/network-protocol.md` - 网络协议文档
+- [ ] `specs/005-multiplayer/spec.md` - 联机系统规范（中文）
+- [ ] `specs/005-multiplayer/tests.md` - 网络测试用例
+- [ ] `specs/005-multiplayer/network-protocol.md` - 网络协议文档
 
 ### 核心功能点
 
@@ -766,7 +766,7 @@
 3. **06-localization** - 本地化规范（中文 + 英文）
 4. **06-cross-platform** - 跨平台构建规范
 
-**Spec 位置**: `.specify/specs/06-public-demo/`
+**Spec 位置**: `specs/006-public-demo/`
 
 ### 核心交付物
 
@@ -799,8 +799,8 @@
 
 - [ ] `README.md` - 项目说明（更新）
 - [ ] `CHANGELOG.md` - v1.0 更新日志
-- [ ] `.specify/specs/06-public-demo/spec.md` - 公开 Demo 规范（中文）
-- [ ] `.specify/specs/06-public-demo/release-checklist.md` - 发布检查清单
+- [ ] `specs/006-public-demo/spec.md` - 公开 Demo 规范（中文）
+- [ ] `specs/006-public-demo/release-checklist.md` - 发布检查清单
 
 ### 核心功能点
 
@@ -1038,7 +1038,7 @@ cargo bloat                # 二进制大小分析
 
 2. **创建里程碑 Spec 文件夹**:
    ```bash
-   mkdir -p .specify/specs/{01-movement,02-combat,03-dungeon,04-progression,05-multiplayer,06-public-demo}
+   mkdir -p specs/{001-movement,002-combat,003-dungeon,004-progression,005-multiplayer,006-public-demo}
    ```
 
 3. **技术预研**（1 天）:

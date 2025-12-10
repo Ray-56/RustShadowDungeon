@@ -16,6 +16,7 @@ pub mod combo;
 /// Damage application and death detection systems
 pub mod damage;
 pub mod debug;
+pub mod dungeon;
 pub mod enemy;
 /// Combat feedback systems (hitfreeze, screen shake, particles, damage numbers)
 pub mod feedback;
@@ -24,14 +25,21 @@ pub mod input;
 /// Invincibility frame system
 pub mod invincibility;
 pub mod jump;
+/// Loot and inventory systems
+pub mod loot;
 pub mod movement;
 /// Particle effect systems
 pub mod particles;
 pub mod pixel_snap;
 /// Skill system
 pub mod skill;
+/// Boss systems
+pub mod boss_systems;
 /// UI system for displaying game information
 pub mod ui;
+
+#[cfg(feature = "inventory-ui")]
+pub mod inventory_ui;
 
 pub use animation::animation_system;
 pub use camera::{camera_follow_system, pixel_snap_camera, setup_camera, GameCamera};
@@ -65,6 +73,7 @@ pub use skill::{
     skill_activation_system, skill_cooldown_system, skill_input_system,
 };
 pub use ui::{
-    combo_ui_fadeout_system, combo_ui_system, setup_ui, skill_cooldown_ui_system,
-    update_coin_count_ui, update_fps_ui, update_health_ui, update_mp_ui, update_score_ui,
+    boss_ui::update_boss_health_ui, combo_ui_fadeout_system, combo_ui_system, setup_ui,
+    skill_cooldown_ui_system, update_coin_count_ui, update_fps_ui, update_health_ui, update_mp_ui,
+    update_score_ui,
 };

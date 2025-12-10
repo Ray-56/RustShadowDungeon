@@ -5,7 +5,7 @@
 /// T108: Tests collision detection performance with 15 enemies
 /// Target: <3ms per frame for collision detection
 use criterion::{criterion_group, criterion_main, Criterion};
-use rust_shadow_dungeon::domain::combat::collision::{Rect, aabb_intersects};
+use rust_shadow_dungeon::domain::combat::collision::{aabb_intersects, Rect};
 
 /// Benchmark AABB intersection check (pure function)
 ///
@@ -89,12 +89,7 @@ fn dense_collision_benchmark(c: &mut Criterion) {
     // Create 10 hitboxes
     let mut hitboxes = Vec::new();
     for i in 0..10 {
-        hitboxes.push(Rect::new(
-            (i as f32) * 15.0,
-            0.0,
-            32.0,
-            32.0,
-        ));
+        hitboxes.push(Rect::new((i as f32) * 15.0, 0.0, 32.0, 32.0));
     }
 
     c.bench_function("collision_detection_dense_20_hurtboxes_10_hitboxes", |b| {
@@ -112,6 +107,10 @@ fn dense_collision_benchmark(c: &mut Criterion) {
     });
 }
 
-criterion_group!(benches, aabb_intersection_benchmark, multiple_entity_collision_benchmark, dense_collision_benchmark);
+criterion_group!(
+    benches,
+    aabb_intersection_benchmark,
+    multiple_entity_collision_benchmark,
+    dense_collision_benchmark
+);
 criterion_main!(benches);
-

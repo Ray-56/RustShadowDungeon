@@ -133,10 +133,7 @@ pub fn skill_activation_system(
             // Set cooldown if skill ID matches
             if skill.skill_id == event.skill_id {
                 skill.remaining_cooldown = skill.cooldown;
-                info!(
-                    "Skill {} activated, cooldown set to {:.2}s",
-                    skill.skill_id, skill.cooldown
-                );
+                info!("Skill {} activated, cooldown set to {:.2}s", skill.skill_id, skill.cooldown);
             }
         } else {
             warn!("Skill component not found for player {:?}", event.player);

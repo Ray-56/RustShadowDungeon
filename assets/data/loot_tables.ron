@@ -1,0 +1,25 @@
+//! Loot table configuration
+//!
+//! 掉落表配置
+//!
+//! Defines loot tables for different enemy types.
+//! Each entry uses independent probability calculation.
+
+(
+    id: "slime",
+    entries: [
+        (
+            item_id: 1,        // Gold coin
+            chance: 0.8,       // 80% chance
+            quantity_min: 5,
+            quantity_max: 15,
+        ),
+        (
+            item_id: 2,        // Health potion
+            chance: 0.3,       // 30% chance (independent)
+            quantity_min: 1,
+            quantity_max: 2,
+        ),
+    ],
+)
+

@@ -19,7 +19,11 @@ pub fn collision_detection_system(
     mut hitbox_query: Query<(Entity, &mut HitBox, &Transform)>,
     hurtbox_query: Query<
         (Entity, &HurtBox, &Transform, &Stats),
-        (Without<HitBox>, Without<Invincibility>, Without<crate::infrastructure::components::enemy::DeathAnimation>),
+        (
+            Without<HitBox>,
+            Without<Invincibility>,
+            Without<crate::infrastructure::components::enemy::DeathAnimation>,
+        ),
     >,
     invincible_query: Query<&Invincibility>,
     mut damage_events: MessageWriter<DamageDealt>,
@@ -113,7 +117,6 @@ pub fn hitbox_cleanup_system(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::domain::combat::Element;
 
     #[test]
     fn test_collision_detection_system_compiles() {

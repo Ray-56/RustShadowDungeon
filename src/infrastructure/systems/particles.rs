@@ -19,10 +19,7 @@ use crate::infrastructure::resources::{CombatConfig, ParticlePool};
 /// T106: Pre-allocates 200 particle entities and adds them to the pool.
 /// This system should run once at startup (in Startup schedule).
 /// Particles are reused by activating/deactivating them instead of spawning/despawning.
-pub fn particle_pool_system(
-    mut commands: Commands,
-    mut particle_pool: ResMut<ParticlePool>,
-) {
+pub fn particle_pool_system(mut commands: Commands, mut particle_pool: ResMut<ParticlePool>) {
     const POOL_SIZE: usize = 200;
 
     // Only initialize if pool is empty (avoid re-initialization)
@@ -44,10 +41,7 @@ pub fn particle_pool_system(
         particle_pool.add_entity(entity);
     }
 
-    info!(
-        "Particle pool initialized with {} particles",
-        particle_pool.pool_size()
-    );
+    info!("Particle pool initialized with {} particles", particle_pool.pool_size());
 }
 
 /// Hit particle system

@@ -1,0 +1,58 @@
+// Test dungeon configuration
+// 测试地下城配置
+
+(
+    dungeon_id: "test_dungeon",
+    start_room_id: 1,
+    rooms: [
+        (
+            room_id: 1,
+            spawn_points: [
+                [100.0, 0.0],
+                [200.0, 0.0],
+                [300.0, 0.0],
+            ],
+            doors: [
+                (
+                    door_id: 1,
+                    connected_room_id: 2,
+                    entrance_position: [100.0, 0.0],
+                ),
+            ],
+        ),
+        (
+            room_id: 2,
+            spawn_points: [
+                [150.0, 0.0],
+                [250.0, 0.0],
+            ],
+            doors: [
+                (
+                    door_id: 1,
+                    connected_room_id: 1,
+                    entrance_position: [100.0, 0.0],
+                ),
+                (
+                    door_id: 2,
+                    connected_room_id: 3,
+                    entrance_position: [100.0, 0.0],
+                ),
+            ],
+        ),
+        (
+            room_id: 3,
+            spawn_points: [
+                [200.0, 0.0],
+            ],
+            doors: [
+                (
+                    door_id: 2,
+                    connected_room_id: 2,
+                    entrance_position: [100.0, 0.0],
+                ),
+            ],
+        ),
+    ],
+)
+
+

@@ -8,8 +8,8 @@
 
 #[cfg(test)]
 mod invincibility_integration_tests {
-    use bevy::prelude::*;
     use bevy::ecs::message::MessageWriter;
+    use bevy::prelude::*;
     use rust_shadow_dungeon::domain::combat::collision::Rect;
     use rust_shadow_dungeon::domain::combat::{DamageResult, Element};
     use rust_shadow_dungeon::infrastructure::components::combat::{HurtBox, Invincibility, Stats};
@@ -35,7 +35,6 @@ mod invincibility_integration_tests {
         }
     }
 
-
     /// T099: Test invincibility blocks damage
     /// Verifies that during invincibility frames, attacks are ignored
     #[test]
@@ -49,6 +48,8 @@ mod invincibility_integration_tests {
         // Add asset plugin for AssetServer (needed by combat_audio_system)
         app.add_plugins(bevy::asset::AssetPlugin::default());
         app.add_plugins(CombatPlugin);
+        // Add DungeonPlugin to register PlayerDeathInRoom message (needed by death_system)
+        app.add_plugins(rust_shadow_dungeon::infrastructure::plugins::dungeon::DungeonPlugin);
 
         // Add test message queue and system
         app.init_resource::<TestMessageQueue>();

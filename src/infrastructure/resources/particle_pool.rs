@@ -28,10 +28,7 @@ impl ParticlePool {
     ///
     /// 创建新的粒子对象池
     pub fn new() -> Self {
-        Self {
-            available: VecDeque::new(),
-            pool_size: 0,
-        }
+        Self { available: VecDeque::new(), pool_size: 0 }
     }
 
     /// Get an available particle entity from the pool
@@ -78,5 +75,3 @@ impl Default for ParticlePool {
         Self::new()
     }
 }
-
-

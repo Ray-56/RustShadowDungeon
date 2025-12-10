@@ -3,6 +3,10 @@
 Auto-generated from all feature plans. Last updated: 2025-11-24
 
 ## Active Technologies
+- Rust 1.82.0 (stable) (003-dungeon-system)
+- RON files for dungeon configuration (`assets/data/dungeons/*.ron`) (003-dungeon-system)
+- Rust 1.75+ (stable) + Bevy 0.12+, bevy_rapier2d (physics), bevy_ecs_ldtk (level loading) (003-dungeon-system)
+- RON files for game data, SQLite for save games (optional) (003-dungeon-system)
 
 - **Language**: Rust (stable, latest)
 - **Game Engine**: Bevy (0.12+)
@@ -84,8 +88,10 @@ cargo run --features bevy/dynamic_linking # Fast compile times
 - Mock resources/events for unit tests
 
 ## Recent Changes
+- 003-dungeon-system: Added Rust 1.75+ (stable) + Bevy 0.12+, bevy_rapier2d (physics), bevy_ecs_ldtk (level loading)
+- 003-dungeon-system: Added Rust 1.75+ (stable) + Bevy 0.12+, bevy_rapier2d (physics), bevy_ecs_ldtk (level loading)
+- 003-dungeon-system: Added Rust 1.75+ (stable) + Bevy 0.12+, bevy_rapier2d (physics), bevy_ecs_ldtk (level loading)
 
-- 001-player-movement: Added Rust 1.91.1 (stable)
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

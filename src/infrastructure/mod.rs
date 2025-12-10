@@ -4,13 +4,9 @@
 //! the pure domain logic to the ECS architecture.
 
 // Infrastructure modules (will be populated in subsequent tasks)
+pub mod assets;
 pub mod components;
 pub mod events;
 pub mod plugins;
 pub mod resources;
 pub mod systems;
-
-
-
-
-

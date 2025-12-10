@@ -6,6 +6,11 @@ use crate::infrastructure::{
 };
 use bevy::prelude::*;
 
+/// Inventory UI system
+pub mod inventory;
+/// Boss UI system
+pub mod boss_ui;
+
 /// Marker for the score text UI element
 #[derive(Component)]
 pub struct ScoreText;
@@ -25,6 +30,18 @@ pub struct CoinCountText;
 /// Marker for the FPS counter text UI element
 #[derive(Component)]
 pub struct FpsText;
+
+/// Marker for the Boss health bar UI element
+#[derive(Component)]
+pub struct BossHealthBar;
+
+/// Marker for the Boss name text UI element
+#[derive(Component)]
+pub struct BossNameText;
+
+/// Marker for the Boss phase indicator UI element
+#[derive(Component)]
+pub struct BossPhaseIndicator;
 
 /// T053: Combo counter UI component
 ///
@@ -134,6 +151,46 @@ pub fn setup_ui(mut commands: Commands) {
                         TextColor(Color::srgb(1.0, 0.9, 0.0)), // Gold
                         ComboCounter { lifetime: 0.0 },
                         Visibility::Hidden, // Hidden by default
+                    ));
+                });
+
+            // Boss health bar (T036) - displayed at top center when Boss is active
+            parent
+                .spawn(Node {
+                    width: Val::Percent(100.0),
+                    height: Val::Auto,
+                    justify_content: JustifyContent::Center,
+                    align_items: AlignItems::Center,
+                    position_type: PositionType::Absolute,
+                    top: Val::Px(20.0),
+                    ..default()
+                })
+                .with_children(|parent| {
+                    // Boss name
+                    parent.spawn((
+                        Text::new(""),
+                        TextFont { font_size: 36.0, ..default() },
+                        TextColor(Color::srgb(1.0, 0.3, 0.3)), // Red
+                        BossNameText,
+                        Visibility::Hidden,
+                    ));
+                    
+                    // Boss health bar (large, prominent)
+                    parent.spawn((
+                        Text::new(""),
+                        TextFont { font_size: 32.0, ..default() },
+                        TextColor(Color::srgb(1.0, 0.2, 0.2)), // Red
+                        BossHealthBar,
+                        Visibility::Hidden,
+                    ));
+                    
+                    // Boss phase indicator
+                    parent.spawn((
+                        Text::new(""),
+                        TextFont { font_size: 24.0, ..default() },
+                        TextColor(Color::srgb(1.0, 0.8, 0.0)), // Gold
+                        BossPhaseIndicator,
+                        Visibility::Hidden,
                     ));
                 });
         });

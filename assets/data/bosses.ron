@@ -1,0 +1,39 @@
+// Boss definitions configuration file
+// Boss 定义配置文件
+
+(
+    bosses: [
+        (
+            id: "orc_warlord",
+            name: "兽人战将",
+            max_health: 1000.0,
+            phases: [
+                (
+                    phase_index: 0,
+                    health_threshold: 1.0,  // 100% 起始
+                    invulnerability_duration: 1.5,  // 1.5 秒无敌
+                    skill_ids: ["ground_slam"],  // 第一阶段：地面重击
+                    attack_frequency: 2.0,  // 每秒 2 次攻击
+                    move_speed: 50.0,
+                ),
+                (
+                    phase_index: 1,
+                    health_threshold: 0.5,  // 50% 触发
+                    invulnerability_duration: 2.0,
+                    skill_ids: ["frenzy_attack", "ground_slam", "charge"],
+                    attack_frequency: 3.0,
+                    move_speed: 70.0,
+                ),
+                (
+                    phase_index: 2,
+                    health_threshold: 0.25,  // 25% 触发
+                    invulnerability_duration: 1.5,
+                    skill_ids: ["frenzy_attack", "charge", "area_explosion"],
+                    attack_frequency: 4.0,
+                    move_speed: 90.0,
+                ),
+            ],
+        ),
+    ],
+)
+

@@ -49,6 +49,18 @@ harness = false
 name = "collision_bench"
 harness = false
 
+[[bench]]
+name = "dungeon_bench"
+harness = false
+
+[[bench]]
+name = "loot_bench"
+harness = false
+
+[[bench]]
+name = "enemy_ai_bench"
+harness = false
+
 [profile.dev]
 opt-level = 1
 

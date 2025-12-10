@@ -15,3 +15,12 @@ mod skill_flow_test;
 
 #[path = "integration/invincibility_test.rs"]
 mod invincibility_test;
+
+#[path = "integration/loot/loot_drop_workflow_test.rs"]
+mod loot_drop_workflow_test;
+
+#[path = "integration/loot/inventory_management_test.rs"]
+mod inventory_management_test;
+
+#[path = "integration/enemy/ai_state_machine_test.rs"]
+mod ai_state_machine_test;
